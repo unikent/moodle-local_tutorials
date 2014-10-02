@@ -22,13 +22,8 @@ $page = required_param('page', PARAM_URL);
 $page = new \moodle_url($page);
 $url = $page->out_as_local_url();
 
-// Would get some tutorials.
+// Get some tutorials.
+$tutorials = \local_tutorials\Page::get_tutorials($url);
 
 echo $OUTPUT->header();
-echo json_encode(array(
-    array(
-        'element' => '.block_kent_course_overview  .form_container',
-        'intro' => 'Use this to search for modules.',
-        'position' => 'bottom'
-    )
-));
+echo json_encode($tutorials);

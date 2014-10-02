@@ -14,11 +14,4 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-// In any kind of "final" version this will be a lot more dynamic.
-global $PAGE;
-
-$PAGE->requires->jquery();
-$PAGE->requires->js('/local/tutorials/media/js/intro.min.js');
-$PAGE->requires->js('/local/tutorials/media/js/tutorials.js');
-$PAGE->requires->css('/local/tutorials/media/css/intro.min.css');
-$PAGE->requires->css('/local/tutorials/media/css/custom.css');
+\local_tutorials\Page::on_load();
