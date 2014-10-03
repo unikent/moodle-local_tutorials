@@ -41,10 +41,10 @@ class Page
 
         // Okay! We want to show tutorials!
         $PAGE->requires->jquery();
-        //$PAGE->requires->js('/local/tutorials/media/js/intro.min.js');
-       // $PAGE->requires->js('/local/tutorials/media/js/tutorials.js');
-       // $PAGE->requires->css('/local/tutorials/media/css/intro.min.css');
-       // $PAGE->requires->css('/local/tutorials/media/css/custom.css');
+        $PAGE->requires->js('/local/tutorials/media/js/intro.min.js');
+        $PAGE->requires->js('/local/tutorials/media/js/tutorials.js');
+        $PAGE->requires->css('/local/tutorials/media/css/intro.min.css');
+        $PAGE->requires->css('/local/tutorials/media/css/custom.css');
     }
 
     /**
@@ -55,6 +55,11 @@ class Page
             array(
                 'element' => '.block_kent_course_overview  .form_container',
                 'intro' => 'Use this to search for modules.',
+                'position' => 'bottom'
+            ),
+            array(
+                'element' => '.block_calendar_month',
+                'intro' => 'This can be used to view events.',
                 'position' => 'bottom'
             )
         );
