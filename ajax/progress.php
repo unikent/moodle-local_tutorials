@@ -18,14 +18,15 @@ define("AJAX_SCRIPT", true);
 
 require_once(dirname(__FILE__) . "/../../../config.php");
 
-$PAGE->set_url("/local/tutorials/ajax/tutorials.php");
+$PAGE->set_url("/local/tutorials/ajax/progress.php");
 
-$page = required_param('page', PARAM_URL);
-$page = new \moodle_url($page);
-$url = $page->out_as_local_url();
+$id = required_param('id', PARAM_INT);
 
-// Get some tutorials.
-$tutorials = \local_tutorials\Tutorial::get_tutorials($url);
+if (!isloggedin() || isguestuser()) {
+	die;
+}
 
-echo $OUTPUT->header();
-echo json_encode($tutorials);
+$tutorial = \local_tutorials\Tutorial::get_tutorial($id);
+if ($tutorial) {
+	$tutorial->mark_seen();
+}

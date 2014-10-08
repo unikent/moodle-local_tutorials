@@ -29,11 +29,11 @@ class Page
     public static function on_load() {
         global $PAGE, $USER;
 
-        if (!isloggedin()) {
+        if (!isloggedin() || isguestuser()) {
             return false;
         }
 
-        // What do we inject?
+        // Does this user want us to inject?
         $showtutorial = get_user_preferences('showtutorials', true, $USER);
         if (!$showtutorial) {
             return false;
@@ -45,23 +45,5 @@ class Page
         $PAGE->requires->js('/local/tutorials/media/js/tutorials.js');
         $PAGE->requires->css('/local/tutorials/media/css/intro.min.css');
         $PAGE->requires->css('/local/tutorials/media/css/custom.css');
-    }
-
-    /**
-     * Returns all tutorials for a given page.
-     */
-    public static function get_tutorials($url) {
-        return array(
-            array(
-                'element' => '.block_kent_course_overview  .form_container',
-                'intro' => 'Use this to search for modules.',
-                'position' => 'bottom'
-            ),
-            array(
-                'element' => '.block_calendar_month',
-                'intro' => 'This can be used to view events.',
-                'position' => 'bottom'
-            )
-        );
     }
 }

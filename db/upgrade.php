@@ -72,5 +72,18 @@ function xmldb_local_tutorials_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2014100202, 'local', 'tutorials');
     }
 
+    if ($oldversion < 2014100800) {
+        // Define table tutorials to be modified.
+        $table = new xmldb_table('tutorials');
+        $field = new xmldb_field('order', XMLDB_TYPE_INTEGER, '2', null, null, null, '1', 'url');
+
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->rename_field($table, $field, "step");
+        }
+
+        // Tutorials savepoint reached.
+        upgrade_plugin_savepoint(true, 2014100800, 'local', 'tutorials');
+    }
+
     return true;
 }
