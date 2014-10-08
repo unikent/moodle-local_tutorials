@@ -56,6 +56,7 @@ class Tutorial
 	        $tutorial->position = $result->position;
 
             $tutorials[] = array(
+                'id' => $result->id,
                 'element' => $tutorial->get_element(),
                 'intro' => $tutorial->get_contents(),
                 'position' => $tutorial->get_position(),
