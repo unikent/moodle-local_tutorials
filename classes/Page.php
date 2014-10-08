@@ -27,15 +27,17 @@ class Page
      * Page load event.
      */
     public static function on_load() {
-        global $PAGE, $USER;
+        global $PAGE, $SESSION, $USER;
 
         if (!isloggedin() || isguestuser()) {
             return false;
         }
 
+        $editor = isset($SESSION->enable_tutorial_editor) ? $SESSION->enable_tutorial_editor == 1 : false;
+
         // Does this user want us to inject?
         $showtutorial = get_user_preferences('showtutorials', true, $USER);
-        if (!$showtutorial) {
+        if (!$editor && !$showtutorial) {
             return false;
         }
 
@@ -45,5 +47,11 @@ class Page
         $PAGE->requires->js('/local/tutorials/media/js/tutorials.js');
         $PAGE->requires->css('/local/tutorials/media/css/intro.min.css');
         $PAGE->requires->css('/local/tutorials/media/css/custom.css');
+
+        // Do we have the editor?
+        if ($editor) {
+            $PAGE->requires->js('/local/tutorials/media/js/editor.js');
+            $PAGE->requires->css('/local/tutorials/media/css/editor.css');
+        }
     }
 }
