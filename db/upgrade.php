@@ -78,7 +78,7 @@ function xmldb_local_tutorials_upgrade($oldversion) {
         $field = new xmldb_field('order', XMLDB_TYPE_INTEGER, '2', null, null, null, '1', 'url');
 
         if ($dbman->field_exists($table, $field)) {
-            $dbman->rename_field($table, $field, "step");
+            $DB->execute('ALTER TABLE {tutorials} CHANGE `order` `step` TINYINT(2) NULL DEFAULT \'1\';');
         }
 
         // Tutorials savepoint reached.

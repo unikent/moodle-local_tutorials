@@ -53,6 +53,17 @@ if ($data = $mform->get_data()) {
 
     redirect(new moodle_url('/local/tutorials/?msg=success'));
     die;
+} else {
+    $id = optional_param('id', null, PARAM_INT);
+    if ($id) {
+        $tutorial = $DB->get_record('tutorials', array(
+            'id' => $id
+        ));
+
+        if ($tutorial) {
+            $mform->set_data($tutorial);
+        }
+    }
 }
 
 echo $OUTPUT->header();
