@@ -14,4 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-//\local_tutorials\Page::on_load();
+defined('MOODLE_INTERNAL') || die;
+
+if ($hassiteconfig) {
+    $settings = new admin_settingpage('local_tutorials', get_string('pluginname', 'local_tutorials'));
+
+    $settings->add(new admin_setting_configcheckbox(
+        'local_tutorials_enabled',
+        get_string('enable', 'local_tutorials'),
+        '',
+        0
+    ));
+
+    $ADMIN->add('localplugins', $settings);
+}

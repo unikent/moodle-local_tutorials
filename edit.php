@@ -26,8 +26,8 @@ $PAGE->set_pagelayout('admin');
 $mform = new tutorials_edit_form('edit.php');
 
 if ($mform->is_cancelled()) {
-	redirect(new moodle_url('/local/tutorials/'));
-	die;
+    redirect(new moodle_url('/local/tutorials/'));
+    die;
 }
 
 if ($data = $mform->get_data()) {

@@ -30,28 +30,13 @@ $mform = new tutorials_preferences_form('preferences.php');
 
 if (!$mform->is_cancelled() && $data = $mform->get_data()) {
     if (isset($data->showtutorials) && $data->showtutorials) {
-	    set_user_preference('showtutorials', 1);
-	} else {
-	    set_user_preference('showtutorials', 0);
-	}
+        set_user_preference('showtutorials', 1);
+    } else {
+        set_user_preference('showtutorials', 0);
+    }
 }
 
 $mform->set_data(array('showtutorials' => get_user_preferences('showtutorials', 1)));
 $mform->display();
-
-if (has_capability('moodle/site:config', $sitecontext)) {
-	$action = optional_param('action', null, PARAM_ALPHA);
-	if ($action) {
-		require_sesskey();
-
-		switch ($action) {
-			case 'editortoggle':
-				$SESSION->enable_tutorial_editor = isset($SESSION->enable_tutorial_editor) ? !$SESSION->enable_tutorial_editor : 1;
-			break;
-		}
-	}
-
-	echo $OUTPUT->single_button('/local/tutorials/preferences.php?action=editortoggle', 'Toggle Tutorial Editor');
-}
 
 echo $OUTPUT->footer();

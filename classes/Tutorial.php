@@ -50,10 +50,10 @@ class Tutorial
         $tutorials = array();
         foreach ($results as $result) {
             $tutorial = new static();
-        	$tutorial->id = $result->id;
-	        $tutorial->element = $result->element;
-	        $tutorial->contents = $result->contents;
-	        $tutorial->position = $result->position;
+            $tutorial->id = $result->id;
+            $tutorial->element = $result->element;
+            $tutorial->contents = $result->contents;
+            $tutorial->position = $result->position;
 
             $tutorials[] = array(
                 'id' => $result->id,
@@ -125,20 +125,20 @@ class Tutorial
      * Mark the tutorial as seen by the current user.
      */
     public function mark_seen() {
-    	global $DB, $USER;
+        global $DB, $USER;
 
-    	$record = array(
-    		'userid' => $USER->id,
-    		'tutorialid' => $this->id
-    	);
+        $record = array(
+            'userid' => $USER->id,
+            'tutorialid' => $this->id
+        );
 
-    	$obj = $DB->get_record('tutorials_user_prefs', $record);
-    	if ($obj) {
-    		$obj->value = 1;
-    		return $DB->update_record('tutorials_user_prefs', $obj);
-    	}
+        $obj = $DB->get_record('tutorials_user_prefs', $record);
+        if ($obj) {
+            $obj->value = 1;
+            return $DB->update_record('tutorials_user_prefs', $obj);
+        }
 
-    	$record['value'] = 1;
-    	return $DB->insert_record('tutorials_user_prefs', $record);
+        $record['value'] = 1;
+        return $DB->insert_record('tutorials_user_prefs', $record);
     }
 }

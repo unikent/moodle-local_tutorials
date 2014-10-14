@@ -26,30 +26,30 @@ echo $OUTPUT->header();
 echo $OUTPUT->heading('Tutorial Editor');
 
 $a = html_writer::tag('a', 'create a new one', array(
-	'href' => new moodle_url('/local/tutorials/edit.php?action=new')
+    'href' => new moodle_url('/local/tutorials/edit.php?action=new')
 ));
 echo "<p>Enter a URL to search for an existing tutorial, or $a.</p>";
 
 $content = html_writer::start_tag('form', array(
-	'class' => 'tutorialsearchform',
-	'method' => 'get',
-	'action' => new moodle_url('/local/tutorials/list.php'),
-	'role' => 'search'
+    'class' => 'tutorialsearchform',
+    'method' => 'get',
+    'action' => new moodle_url('/local/tutorials/list.php'),
+    'role' => 'search'
 ));
 $content .= html_writer::start_tag('div');
 $content .= html_writer::tag('label', "Search Tutorials", array(
-	'for' => 'tutorialsearchform',
-	'class' => 'accesshide'
+    'for' => 'tutorialsearchform',
+    'class' => 'accesshide'
 ));
 $content .= html_writer::empty_tag('input', array(
-	'id' => 'tutorialsearchquery',
-	'type' => 'text',
-	'name' => 'query',
-	'value'=> ''
+    'id' => 'tutorialsearchquery',
+    'type' => 'text',
+    'name' => 'query',
+    'value' => ''
 ));
 $content .= html_writer::empty_tag('input', array(
-	'type' => 'submit',
-	'value'=> 'Search'
+    'type' => 'submit',
+    'value' => 'Search'
 ));
 $content .= html_writer::end_tag('div');
 $content .= html_writer::end_tag('form');
