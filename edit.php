@@ -16,12 +16,10 @@
 
 require_once(dirname(__FILE__) . "/../../config.php");
 require_once(dirname(__FILE__) . "/edit_form.php");
+require_once($CFG->libdir . '/adminlib.php');
 
 // Initial setup.
-$sitecontext = context_system::instance();
-$PAGE->set_context($sitecontext);
-$PAGE->set_url('/local/tutorials/index.php');
-$PAGE->set_pagelayout('admin');
+admin_externalpage_setup('tutorialsedit', '', null, '', array('pagelayout' => 'report'));
 
 $mform = new tutorials_edit_form('edit.php');
 

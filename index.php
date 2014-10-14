@@ -15,12 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(dirname(__FILE__) . "/../../config.php");
+require_once($CFG->libdir . '/adminlib.php');
 
 // Initial setup.
-$sitecontext = context_system::instance();
-$PAGE->set_context($sitecontext);
-$PAGE->set_url('/local/tutorials/index.php');
-$PAGE->set_pagelayout('admin');
+admin_externalpage_setup('tutorialsindex', '', null, '', array('pagelayout' => 'report'));
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading('Tutorial Editor');
