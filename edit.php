@@ -29,6 +29,30 @@ if ($mform->is_cancelled()) {
 }
 
 if ($data = $mform->get_data()) {
+    $tutorial = new \stdClass();
+
+    // Is this an existing tutorial?
+    if (!empty($data->id)) {
+        $tutorial = $DB->get_record('tutorials', array(
+            'id' => $data->id
+        ));
+    }
+
+    $fields = array('url', 'step', 'element', 'contents', 'position');
+    foreach ($fields as $field) {
+        if (isset($data->$field)) {
+            $tutorial->$field = $data->$field;
+        }
+    }
+
+    if (!empty($tutorial->id)) {
+        $DB->update_record('tutorials', $tutorial);
+    } else {
+        $DB->insert_record('tutorials', $tutorial);
+    }
+
+    redirect(new moodle_url('/local/tutorials/?msg=success'));
+    die;
 }
 
 echo $OUTPUT->header();

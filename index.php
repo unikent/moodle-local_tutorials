@@ -23,6 +23,15 @@ admin_externalpage_setup('tutorialsindex', '', null, '', array('pagelayout' => '
 echo $OUTPUT->header();
 echo $OUTPUT->heading('Tutorial Editor');
 
+$msg = optional_param('msg', '', PARAM_ALPHA);
+if (!empty($msg)) {
+    switch ($msg) {
+        case 'success':
+            echo $OUTPUT->notification('Success!', 'notifysuccess');
+        break;
+    }
+}
+
 $a = html_writer::tag('a', 'create a new one', array(
     'href' => new moodle_url('/local/tutorials/edit.php?action=new')
 ));

@@ -47,6 +47,14 @@ class tutorials_edit_form extends moodleform {
         $mform->setType('contents', PARAM_RAW);
         $mform->setDefault('contents', 'This element is for doing x and y');
 
+        $mform->addElement('select', 'position', "Position", array(
+            '1' => "Bottom",
+            '2' => "Left",
+            '3' => "Top",
+            '4' => "Right"
+        ));
+        $mform->setType('position', PARAM_INT);
+
         $this->add_action_buttons();
     }
 }
