@@ -33,7 +33,7 @@ define([], function() {
                             intro: "Hello world!"
                         },
                         {
-                            element: document.querySelector('#step1'),
+                            element: document.querySelector('#block-region-side-pre'),
                             intro: "This is a tooltip."
                         },
                         {

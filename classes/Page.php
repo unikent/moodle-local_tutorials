@@ -44,6 +44,6 @@ class Page
         $PAGE->requires->js_call_amd('local_tutorials/page', 'init', array());
         $PAGE->requires->css('/local/tutorials/media/css/intro.min.css');
         $PAGE->requires->css('/local/tutorials/media/css/intro.theme.css');
-        //$PAGE->requires->css('/local/tutorials/media/css/custom.css');
+        $PAGE->requires->css('/local/tutorials/media/css/custom.css');
     }
 }
