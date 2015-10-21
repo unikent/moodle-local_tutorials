@@ -14,17 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
- * Defines the version.
+ * Local stuff for Moodle tutorials
  *
  * @package    local_tutorials
- * @copyright  2014 Skylar Kelty <S.Kelty@kent.ac.uk>
+ * @copyright  2015 Skylar Kelty <S.Kelty@kent.ac.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+$services = array(
+    'tutorials service' => array(
+        'functions' => array (
+            'local_tutorials_get_tutorials'
+        ),
+        'requiredcapability' => '',
+        'restrictedusers' => 0,
+        'enabled' => 1
+    )
+);
 
-$plugin->version   = 2015102101;
-$plugin->component = 'local_tutorials';
-$plugin->requires = 2014051200;
+$functions = array(
+    'local_tutorials_get_tutorials' => array(
+        'classname'   => 'local_tutorials\external',
+        'methodname'  => 'get_tutorials',
+        'description' => 'Get tutorials.',
+        'type'        => 'read'
+    )
+);

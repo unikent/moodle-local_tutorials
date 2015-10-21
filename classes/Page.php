@@ -27,7 +27,7 @@ class Page
      * Page load event.
      */
     public static function on_load() {
-        global $PAGE, $SESSION, $USER;
+        global $PAGE, $SESSION, $USER, $OUTPUT;
 
         if (!isloggedin() || isguestuser()) {
             return false;
@@ -39,11 +39,25 @@ class Page
             return false;
         }
 
+        // Check we have some tutorials.
+        $localurl = $PAGE->url->out_as_local_url();
+        $tutorials = \local_tutorials\Tutorial::get_tutorials($localurl);
+        if (count($tutorials) <= 0) {
+            return false;
+        }
+
         // Okay! We want to show tutorials!
         $PAGE->requires->jquery();
-        $PAGE->requires->js_call_amd('local_tutorials/page', 'init', array());
+        $PAGE->requires->js_call_amd('local_tutorials/page', 'init', array($localurl));
         $PAGE->requires->css('/local/tutorials/media/css/intro.min.css');
         $PAGE->requires->css('/local/tutorials/media/css/intro.theme.css');
         $PAGE->requires->css('/local/tutorials/media/css/custom.css');
+
+        $PAGE->set_button($OUTPUT->single_button(new \moodle_url('/local/tutorial/view.php', array()), 'Help', 'get', array(
+            'formid' => 'tutorial-play',
+            'tooltip' => 'Help is available for this page'
+        )) . $PAGE->button);
+
+        return true;
     }
 }

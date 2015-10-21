@@ -27,6 +27,7 @@ class Tutorial
     private $element;
     private $contents;
     private $position;
+    private $seen;
 
     /**
      * Returns all tutorials for a given page.
@@ -36,11 +37,11 @@ class Tutorial
 
         $select = $DB->sql_compare_text('url') . '=' . $DB->sql_compare_text(':url');
         $results = $DB->get_records_sql("
-            SELECT t.*
+            SELECT t.id, t.element, t.contents, t.position, COALESCE(tup.value, 0) as seen
             FROM {tutorials} t
             LEFT OUTER JOIN {tutorials_user_prefs} tup
                 ON tup.tutorialid=t.id AND tup.userid=:uid
-            WHERE (tup.id IS NULL OR tup.value=0) AND $select
+            WHERE $select
             ORDER BY t.step ASC
         ", array(
             'uid' => $USER->id,
@@ -54,12 +55,14 @@ class Tutorial
             $tutorial->element = $result->element;
             $tutorial->contents = $result->contents;
             $tutorial->position = $result->position;
+            $tutorial->seen = $result->seen;
 
             $tutorials[] = array(
                 'id' => $result->id,
                 'element' => $tutorial->get_element(),
                 'intro' => $tutorial->get_contents(),
                 'position' => $tutorial->get_position(),
+                'seen' => $tutorial->has_seen()
             );
         }
 
@@ -140,5 +143,25 @@ class Tutorial
 
         $record['value'] = 1;
         return $DB->insert_record('tutorials_user_prefs', $record);
+    }
+
+    /**
+     * Has the user seen this tutorial?
+     */
+    public function has_seen() {
+        global $DB, $USER;
+
+        if (!isset($this->seen)) {
+            $this->seen = $DB->get_field('tutorials_user_prefs', 'value', array(
+                'userid' => $USER->id,
+                'tutorialid' => $this->id
+            ));
+
+            if (!$this->seen) {
+                $this->seen = false;
+            }
+        }
+
+        return $this->seen === 1;
     }
 }
