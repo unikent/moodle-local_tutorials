@@ -3,6 +3,8 @@
  * https://github.com/usablica/intro.js
  * MIT licensed
  *
+ * Kent patched for Bootstrap compatibility.
+ *
  * Copyright (C) 2013 usabli.ca - A weekend project by Afshin Mehrabani (@afshinmeh)
  */
 
@@ -872,7 +874,7 @@
 
       progressLayer.appendChild(progressBar);
 
-      buttonsLayer.className = 'introjs-tooltipbuttons';
+      buttonsLayer.className = 'introjs-tooltipbuttons btn-group btn-group-justified';
       if (this._options.showButtons === false) {
         buttonsLayer.style.display = 'none';
       }
@@ -919,7 +921,7 @@
 
       //skip button
       var skipTooltipButton = document.createElement('a');
-      skipTooltipButton.className = 'introjs-button introjs-skipbutton';
+      skipTooltipButton.className = 'introjs-button introjs-skipbutton btn btn-primary';
       skipTooltipButton.href = 'javascript:void(0);';
       skipTooltipButton.innerHTML = this._options.skipLabel;
 
@@ -958,18 +960,18 @@
     nextTooltipButton.removeAttribute('tabIndex');
 
     if (this._currentStep == 0 && this._introItems.length > 1) {
-      prevTooltipButton.className = 'introjs-button introjs-prevbutton introjs-disabled';
+      prevTooltipButton.className = 'introjs-button introjs-prevbutton introjs-disabled btn btn-default';
       prevTooltipButton.tabIndex = '-1';
-      nextTooltipButton.className = 'introjs-button introjs-nextbutton';
+      nextTooltipButton.className = 'introjs-button introjs-nextbutton btn btn-primary';
       skipTooltipButton.innerHTML = this._options.skipLabel;
     } else if (this._introItems.length - 1 == this._currentStep || this._introItems.length == 1) {
       skipTooltipButton.innerHTML = this._options.doneLabel;
-      prevTooltipButton.className = 'introjs-button introjs-prevbutton';
-      nextTooltipButton.className = 'introjs-button introjs-nextbutton introjs-disabled';
+      prevTooltipButton.className = 'introjs-button introjs-prevbutton btn btn-primary';
+      nextTooltipButton.className = 'introjs-button introjs-nextbutton introjs-disabled btn btn-default';
       nextTooltipButton.tabIndex = '-1';
     } else {
-      prevTooltipButton.className = 'introjs-button introjs-prevbutton';
-      nextTooltipButton.className = 'introjs-button introjs-nextbutton';
+      prevTooltipButton.className = 'introjs-button introjs-prevbutton btn btn-primary';
+      nextTooltipButton.className = 'introjs-button introjs-nextbutton btn btn-primary';
       skipTooltipButton.innerHTML = this._options.skipLabel;
     }
 
