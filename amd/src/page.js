@@ -29,7 +29,6 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
         var steps = [];
         $.each(data, function(i,o) {
             if (o['element'].length > 0) {
-                console.log(o);
                 var elem = document.querySelector(o['element']);
                 if (!elem) {
                     console.log("Orphaned tutorial step: " + o['id']);
