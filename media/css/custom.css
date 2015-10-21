@@ -1,8 +1,10 @@
-.introjs-arrow {
-    padding: 0;
-    background: none;
+.introjs-helperNumberLayer {
+    line-height: 13px;
 }
 
-.introjs-showElement {
-    background: none !important;
+.introjs-button:focus,
+.introjs-button:active,
+.introjs-button:hover {
+    color: #fff !important;
+    text-shadow: none;
 }
