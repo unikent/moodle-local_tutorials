@@ -93,4 +93,56 @@ class external extends external_api
             'seen' => new external_value(PARAM_BOOL, 'The tutorial seen.')
         )));
     }
+
+    /**
+     * Returns description of method parameters
+     * @return external_function_parameters
+     */
+    public static function mark_seen_parameters() {
+        return new external_function_parameters(array(
+            'id' => new external_value(
+                PARAM_INT,
+                'The tutorial step we have just seen.',
+                VALUE_REQUIRED
+            )
+        ));
+    }
+
+    /**
+     * Expose to AJAX
+     * @return boolean
+     */
+    public static function mark_seen_is_allowed_from_ajax() {
+        return true;
+    }
+
+    /**
+     * mark_seen a list of tutorials for the given URL.
+     *
+     * @param $id
+     * @return array [string]
+     * @throws \invalid_parameter_exception
+     */
+    public static function mark_seen($id) {
+        global $DB;
+
+        $params = self::validate_parameters(self::mark_seen_parameters(), array(
+            'id' => $id
+        ));
+        $id = $params['id'];
+
+        $tutorial = \local_tutorials\Tutorial::get_tutorial($id);
+        if ($tutorial) {
+            $tutorial->mark_seen();
+        }
+    }
+
+    /**
+     * Returns description of mark_seen() result value.
+     *
+     * @return external_description
+     */
+    public static function mark_seen_returns() {
+        return null;
+    }
 }

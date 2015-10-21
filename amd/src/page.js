@@ -32,7 +32,7 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
                 var elem = document.querySelector(o['element']);
                 if (!elem) {
                     console.log("Orphaned tutorial step: " + o['id']);
-                    // TODO: Mark as orphaned.
+                    // TODO: Mark as orphaned? Splunk?
                     return;
                 }
             } else {
@@ -58,14 +58,13 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
 
             intro.onchange(function(targetElement) {
                 // Mark this step as complete.
-                /*var tut_id = int_steps[this._currentStep];
-                $.ajax({
-                    type: "POST",
-                    url: M.cfg.wwwroot + "/local/tutorials/ajax/progress.php",
-                    data: {
-                        id: tut_id
+                var tutid = int_steps[this._currentStep];
+                ajax.call([{
+                    methodname: 'local_tutorials_mark_seen',
+                    args: {
+                        id: tutid
                     }
-                })*/
+                }]);
             });
 
             intro.onexit(function() {

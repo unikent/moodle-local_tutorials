@@ -25,7 +25,8 @@
 $services = array(
     'tutorials service' => array(
         'functions' => array (
-            'local_tutorials_get_tutorials'
+            'local_tutorials_get_tutorials',
+            'local_tutorials_mark_seen'
         ),
         'requiredcapability' => '',
         'restrictedusers' => 0,
@@ -39,5 +40,11 @@ $functions = array(
         'methodname'  => 'get_tutorials',
         'description' => 'Get tutorials.',
         'type'        => 'read'
+    ),
+    'local_tutorials_mark_seen' => array(
+        'classname'   => 'local_tutorials\external',
+        'methodname'  => 'mark_seen',
+        'description' => 'Mark a tutorial as seen.',
+        'type'        => 'write'
     )
 );
