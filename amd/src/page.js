@@ -39,10 +39,8 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
                 delete o['element'];
             }
 
-            if (!o['seen']) {
-                steps.push(o);
-                int_steps.push(o['id'])
-            }
+            steps.push(o);
+            int_steps.push(o['id']);
         });
 
         if (steps.length <= 0) {
@@ -53,7 +51,11 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
             var intro = introJs();
 
             intro.setOptions({
-                steps: steps
+                steps: steps,
+                nextLabel: 'Next',
+                prevLabel: 'Back',
+                skipLabel: 'Close',
+                doneLabel: 'Close'
             });
 
             intro.onchange(function(targetElement) {
