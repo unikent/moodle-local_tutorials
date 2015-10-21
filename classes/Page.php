@@ -41,9 +41,9 @@ class Page
 
         // Okay! We want to show tutorials!
         $PAGE->requires->jquery();
-        $PAGE->requires->js('/local/tutorials/media/js/intro.min.js');
-        $PAGE->requires->js('/local/tutorials/media/js/tutorials.js');
+        $PAGE->requires->js_call_amd('local_tutorials/page', 'init', array());
         $PAGE->requires->css('/local/tutorials/media/css/intro.min.css');
-        $PAGE->requires->css('/local/tutorials/media/css/custom.css');
+        $PAGE->requires->css('/local/tutorials/media/css/intro.theme.css');
+        //$PAGE->requires->css('/local/tutorials/media/css/custom.css');
     }
 }
