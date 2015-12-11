@@ -54,14 +54,6 @@ class external extends external_api
     }
 
     /**
-     * Expose to AJAX
-     * @return boolean
-     */
-    public static function get_tutorials_is_allowed_from_ajax() {
-        return true;
-    }
-
-    /**
      * get_tutorials a list of tutorials for the given URL.
      *
      * @param $url
@@ -106,14 +98,6 @@ class external extends external_api
                 VALUE_REQUIRED
             )
         ));
-    }
-
-    /**
-     * Expose to AJAX
-     * @return boolean
-     */
-    public static function mark_seen_is_allowed_from_ajax() {
-        return true;
     }
 
     /**
