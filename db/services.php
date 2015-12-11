@@ -39,12 +39,14 @@ $functions = array(
         'classname'   => 'local_tutorials\external',
         'methodname'  => 'get_tutorials',
         'description' => 'Get tutorials.',
-        'type'        => 'read'
+        'type'        => 'read',
+        'ajax'        => true
     ),
     'local_tutorials_mark_seen' => array(
         'classname'   => 'local_tutorials\external',
         'methodname'  => 'mark_seen',
         'description' => 'Mark a tutorial as seen.',
-        'type'        => 'write'
+        'type'        => 'write',
+        'ajax'        => true
     )
 );
