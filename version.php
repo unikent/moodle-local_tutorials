@@ -19,12 +19,12 @@
  * Defines the version.
  *
  * @package    local_tutorials
- * @copyright  2014 Skylar Kelty <S.Kelty@kent.ac.uk>
+ * @copyright  2016 Skylar Kelty <S.Kelty@kent.ac.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015121200;
+$plugin->version   = 2016010400;
 $plugin->component = 'local_tutorials';
 $plugin->requires = 2015111600;

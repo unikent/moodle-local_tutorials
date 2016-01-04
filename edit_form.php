@@ -25,7 +25,7 @@ class tutorials_edit_form extends moodleform {
     public function definition() {
         global $USER, $CFG;
 
-        $mform    =& $this->_form;
+        $mform =& $this->_form;
 
         $mform->addElement('hidden', 'id');
         $mform->setType('id', PARAM_INT);
