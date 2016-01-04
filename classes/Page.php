@@ -26,9 +26,20 @@ class Page
     /**
      * Page load event.
      */
-    public static function on_load() {
-        global $PAGE, $SESSION, $USER, $OUTPUT;
+    public static function on_load(\moodle_page $page) {
+        global $CFG, $SESSION, $USER, $OUTPUT;
 
+        // Are we enabled?
+        if (!isset($CFG->local_tutorials_enabled) || !$CFG->local_tutorials_enabled) {
+            return false;
+        }
+
+        // Only show up for some page layouts.
+        if (in_array($page->pagelayout, array('admin', 'maintenance', 'redirect'))) {
+            return false;
+        }
+
+        // We must be logged in for tutorials.
         if (!isloggedin() || isguestuser()) {
             return false;
         }
@@ -40,23 +51,23 @@ class Page
         }
 
         // Check we have some tutorials.
-        $localurl = $PAGE->url->out_as_local_url();
+        $localurl = $page->url->out_as_local_url();
         $tutorials = \local_tutorials\Tutorial::get_tutorials($localurl);
         if (count($tutorials) <= 0) {
             return false;
         }
 
         // Okay! We want to show tutorials!
-        $PAGE->requires->jquery();
-        $PAGE->requires->js_call_amd('local_tutorials/page', 'init', array($localurl));
-        $PAGE->requires->css('/local/tutorials/media/css/intro.css');
-        $PAGE->requires->css('/local/tutorials/media/css/intro.theme.css');
-        $PAGE->requires->css('/local/tutorials/media/css/custom.css');
+        $page->requires->jquery();
+        $page->requires->js_call_amd('local_tutorials/page', 'init', array($localurl));
+        $page->requires->css('/local/tutorials/media/css/intro.css');
+        $page->requires->css('/local/tutorials/media/css/intro.theme.css');
+        $page->requires->css('/local/tutorials/media/css/custom.css');
 
-        $PAGE->set_button($OUTPUT->single_button(new \moodle_url('/local/tutorial/view.php', array()), 'Help', 'get', array(
+        $page->set_button($OUTPUT->single_button(new \moodle_url('/local/tutorial/view.php', array()), 'Help', 'get', array(
             'formid' => 'tutorial-play',
             'tooltip' => 'Help is available for this page'
-        )) . $PAGE->button);
+        )) . $page->button);
 
         return true;
     }
