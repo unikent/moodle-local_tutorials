@@ -16,3 +16,10 @@
 
 $string['pluginname'] = 'Tutorials';
 $string['enable'] = 'Enable Tutorials';
+
+$string['demo_title'] = 'Tutorial Demo';
+$string['demo_button'] = 'Example Button';
+$string['demo_notification'] = 'Example Notification';
+$string['demo_text0'] = 'A notification! These can be used to display alerts.';
+$string['demo_text1'] = 'A blue button, that does nothing.';
+$string['demo_text2'] = 'A red button, this is probably safe.';

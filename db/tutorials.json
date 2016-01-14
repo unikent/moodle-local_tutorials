@@ -1,0 +1,26 @@
+[
+    {
+        'url': '/local/tutorials/index.php',
+        'step': 0,
+        'element': '.testnotification',
+        'str_component': 'local_tutorials',
+        'str_name': 'demo_text0',
+        'position': 'bottom'
+    },
+    {
+        'url': '/local/tutorials/index.php',
+        'step': 1,
+        'element': '#testid1',
+        'str_component': 'local_tutorials',
+        'str_name': 'demo_text1',
+        'position': 'left'
+    },
+    {
+        'url': '/local/tutorials/index.php',
+        'step': 2,
+        'element': '#testid2',
+        'str_component': 'local_tutorials',
+        'str_name': 'demo_text2',
+        'position': 'right'
+    }
+]

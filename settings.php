@@ -26,4 +26,10 @@ if ($hassiteconfig) {
     ));
 
     $ADMIN->add('localplugins', $settings);
+
+    $ADMIN->add('localplugins', new admin_externalpage(
+        'tutorialsdemo',
+        get_string('demo_title', 'local_tutorials'),
+        "$CFG->wwwroot/local/tutorials/index.php"
+    ));
 }
