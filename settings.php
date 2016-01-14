@@ -17,10 +17,7 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($hassiteconfig) {
-    $category = new admin_category('tutorials', new lang_string('pluginname', 'local_tutorials'));
-
-    $settings = new admin_settingpage('local_tutorials', 'Settings');
-
+    $settings = new admin_settingpage('local_tutorials', get_string('pluginname', 'local_tutorials'));
     $settings->add(new admin_setting_configcheckbox(
         'local_tutorials_enabled',
         get_string('enable', 'local_tutorials'),
@@ -28,15 +25,5 @@ if ($hassiteconfig) {
         0
     ));
 
-    $category->add('tutorials', $settings);
-
-    $taindex = new admin_externalpage('tutorialsedit', "Add Tutorial", "$CFG->wwwroot/local/tutorials/edit.php",
-        'moodle/site:config');
-    $category->add('tutorials', $taindex);
-
-    $tindex = new admin_externalpage('tutorialsindex', "Edit Tutorial", "$CFG->wwwroot/local/tutorials/index.php",
-        'moodle/site:config');
-    $category->add('tutorials', $tindex);
-
-    $ADMIN->add('modules', $category);
+    $ADMIN->add('localplugins', $settings);
 }
