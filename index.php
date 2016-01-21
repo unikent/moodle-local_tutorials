@@ -18,48 +18,14 @@ require_once(dirname(__FILE__) . "/../../config.php");
 require_once($CFG->libdir . '/adminlib.php');
 
 // Initial setup.
-admin_externalpage_setup('tutorialsindex', '', null, '', array('pagelayout' => 'report'));
+admin_externalpage_setup('tutorialsdemo', '', null, '', array('pagelayout' => 'report'));
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading('Tutorial Editor');
+echo $OUTPUT->heading(get_string('demo_title', 'local_tutorials'));
 
-$msg = optional_param('msg', '', PARAM_ALPHA);
-if (!empty($msg)) {
-    switch ($msg) {
-        case 'success':
-            echo $OUTPUT->notification('Success!', 'notifysuccess');
-        break;
-    }
-}
+echo $OUTPUT->notification(get_string('demo_notification', 'local_tutorials'), 'notifyproblem testnotification');
 
-$a = html_writer::tag('a', 'create a new one', array(
-    'href' => new moodle_url('/local/tutorials/edit.php?action=new')
-));
-echo "<p>Enter a URL to search for an existing tutorial, or $a.</p>";
-
-$content = html_writer::start_tag('form', array(
-    'class' => 'tutorialsearchform',
-    'method' => 'get',
-    'action' => new moodle_url('/local/tutorials/list.php'),
-    'role' => 'search'
-));
-$content .= html_writer::start_tag('div');
-$content .= html_writer::tag('label', "Search Tutorials", array(
-    'for' => 'tutorialsearchform',
-    'class' => 'accesshide'
-));
-$content .= html_writer::empty_tag('input', array(
-    'id' => 'tutorialsearchquery',
-    'type' => 'text',
-    'name' => 'query',
-    'value' => ''
-));
-$content .= html_writer::empty_tag('input', array(
-    'type' => 'submit',
-    'value' => 'Search'
-));
-$content .= html_writer::end_tag('div');
-$content .= html_writer::end_tag('form');
-echo $content;
+echo \html_writer::tag('button', get_string('demo_button', 'local_tutorials'), array('id' => 'testid1', 'class' => 'btn btn-primary')) . " ";
+echo \html_writer::tag('button', get_string('demo_button', 'local_tutorials'), array('id' => 'testid2', 'class' => 'btn btn-danger'));
 
 echo $OUTPUT->footer();
