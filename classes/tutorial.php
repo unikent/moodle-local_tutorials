@@ -112,18 +112,11 @@ class tutorial
      * Returns the position of the tutorial.
      */
     public function get_position() {
-        switch ($this->position) {
-            case '1':
-                return 'bottom';
-            case '2':
-                return 'left';
-            case '3':
-                return 'top';
-            case '4':
-                return 'right';
-            default:
-                return $this->position;
+        if (empty($this->position)) {
+            return 'auto';
         }
+
+        return $this->position;
     }
 
     /**
