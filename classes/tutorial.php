@@ -33,7 +33,7 @@ class tutorial
     /**
      * Returns all tutorials for a given page.
      */
-    public static function get_tutorials($url) {
+    public static function get_tutorials($url, $excludeseen = false) {
         global $DB, $USER;
 
         $select = $DB->sql_compare_text('url') . '=' . $DB->sql_compare_text(':url');
@@ -42,7 +42,7 @@ class tutorial
             FROM {tutorials} t
             LEFT OUTER JOIN {tutorials_seen} ts
                 ON ts.tutorialuuid=t.uuid AND ts.userid=:uid
-            WHERE $select
+            WHERE $select OR url IS NULL
             ORDER BY t.step ASC
         ", array(
             'uid' => $USER->id,
@@ -51,6 +51,10 @@ class tutorial
 
         $tutorials = array();
         foreach ($results as $result) {
+            if ($excludeseen && $result->seen) {
+                continue;
+            }
+
             $tutorial = new static();
             $tutorial->id = $result->id;
             $tutorial->uuid = $result->uuid;
@@ -87,6 +91,7 @@ class tutorial
 
         $obj = new static();
         $obj->id = $result->id;
+        $obj->uuid = $result->uuid;
         $obj->element = $result->element;
         $obj->contents = $result->contents;
         $obj->position = $result->position;
@@ -124,6 +129,11 @@ class tutorial
      */
     public function mark_seen() {
         global $DB, $USER;
+
+        // If we are aliasing a user, don't effect this.
+        if (\core\session\manager::is_loggedinas()) {
+            return;
+        }
 
         $record = array(
             'userid' => $USER->id,

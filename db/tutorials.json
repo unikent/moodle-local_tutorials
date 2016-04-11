@@ -22,5 +22,10 @@
         "element": "#testid2",
         "contents": "This is another another test!",
         "position": "right"
+    },
+    {
+        "uuid": "globaltest",
+        "element": ".block_settings",
+        "contents": "This is a settings block"
     }
 ]

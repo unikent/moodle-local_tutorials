@@ -49,6 +49,12 @@ class external extends external_api
                 PARAM_URL,
                 'The URL to get tutorials for.',
                 VALUE_REQUIRED
+            ),
+            'excludeseen' => new external_value(
+                PARAM_BOOL,
+                'Should we exclude any tutorials the current user has seen?',
+                VALUE_OPTIONAL,
+                false
             )
         ));
     }
@@ -57,16 +63,19 @@ class external extends external_api
      * get_tutorials a list of tutorials for the given URL.
      *
      * @param $url
+     * @param $excludeseen
      * @return array [string]
      * @throws \invalid_parameter_exception
      */
-    public static function get_tutorials($url) {
+    public static function get_tutorials($url, $excludeseen) {
         $params = self::validate_parameters(self::get_tutorials_parameters(), array(
-            'url' => $url
+            'url' => $url,
+            'excludeseen' => $excludeseen
         ));
         $url = $params['url'];
+        $excludeseen = $params['excludeseen'];
 
-        return \local_tutorials\tutorial::get_tutorials($url);
+        return \local_tutorials\tutorial::get_tutorials($url, $excludeseen);
     }
 
     /**
@@ -79,8 +88,8 @@ class external extends external_api
             'id' => new external_value(PARAM_INT, 'The tutorial ID.'),
             'element' => new external_value(PARAM_TEXT, 'The tutorial DOM element reference.'),
             'intro' => new external_value(PARAM_TEXT, 'The tutorial contents.'),
-            'position' => new external_value(PARAM_TEXT, 'The tutorial position.'),
-            'seen' => new external_value(PARAM_BOOL, 'The tutorial seen.')
+            'position' => new external_value(PARAM_TEXT, 'The tutorial box position.'),
+            'seen' => new external_value(PARAM_BOOL, 'Has the tutorial been seen by the current user?')
         )));
     }
 

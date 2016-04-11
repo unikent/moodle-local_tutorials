@@ -52,7 +52,7 @@ class page
 
         // Check we have some tutorials.
         $localurl = $page->url->out_as_local_url();
-        $tutorials = \local_tutorials\tutorial::get_tutorials($localurl);
+        $tutorials = \local_tutorials\tutorial::get_tutorials($localurl, true);
         if (count($tutorials) <= 0) {
             return false;
         }
