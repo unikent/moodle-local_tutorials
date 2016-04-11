@@ -24,7 +24,7 @@ $PAGE->set_url('/local/tutorials/preferences.php');
 $PAGE->set_pagelayout('admin');
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading('User Preferences');
+echo $OUTPUT->heading(get_string('prefstitle', 'local_tutorials'));
 
 $mform = new tutorials_preferences_form('preferences.php');
 
@@ -33,6 +33,10 @@ if (!$mform->is_cancelled() && $data = $mform->get_data()) {
         set_user_preference('showtutorials', 1);
     } else {
         set_user_preference('showtutorials', 0);
+    }
+
+    if (isset($data->resettutorials) && $data->resettutorials) {
+        $DB->delete_records('tutorials_seen', array('userid' => $USER->id));
     }
 }
 

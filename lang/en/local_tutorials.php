@@ -15,7 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 $string['pluginname'] = 'Tutorials';
+
+$string['prefstitle'] = 'Tutorial Preferences';
 $string['enable'] = 'Enable Tutorials';
+$string['reset'] = 'Reset Tutorials';
 
 $string['demo_title'] = 'Tutorial Demo';
 $string['demo_button'] = 'Example Button';

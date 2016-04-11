@@ -25,8 +25,11 @@ class tutorials_preferences_form extends moodleform {
     public function definition() {
         $mform =& $this->_form;
 
-        $mform->addElement('checkbox', 'showtutorials', "Enable Tutorials");
+        $mform->addElement('checkbox', 'showtutorials', get_string('enable', 'local_tutorials'));
         $mform->setDefault('showtutorials', 1);
+
+        $mform->addElement('checkbox', 'resettutorials', get_string('reset', 'local_tutorials'));
+        $mform->setDefault('resettutorials', 0);
 
         $this->add_action_buttons();
     }
