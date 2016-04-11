@@ -59,11 +59,10 @@ class loader
         // Delete all uuids that are not in the array.
         $dbids = $DB->get_fieldset_select('tutorials', 'uuid', '');
         $diff = array_diff($dbids, $uuids);
-        $deleteset = array_map(function($b) {
-            return array('uuid' => $b);
-        }, $diff);
-        $DB->delete_records('tutorials', $deleteset);
-        $DB->delete_records('tutorials_seen', $deleteset);
+        if (!empty($diff)) {
+            $DB->delete_records_list('tutorials', 'uuid', $diff);
+            $DB->delete_records_list('tutorials_seen', 'tutorialuuid', $diff);
+        }
     }
 
     /**
