@@ -24,6 +24,7 @@ defined('MOODLE_INTERNAL') || die();
 class Tutorial
 {
     private $id;
+    private $uuid;
     private $element;
     private $contents;
     private $position;
@@ -37,10 +38,10 @@ class Tutorial
 
         $select = $DB->sql_compare_text('url') . '=' . $DB->sql_compare_text(':url');
         $results = $DB->get_records_sql("
-            SELECT t.id, t.element, t.contents, t.position, COALESCE(tup.value, 0) as seen
+            SELECT t.id, t.uuid, t.element, t.contents, t.position, COALESCE(ts.value, 0) as seen
             FROM {tutorials} t
-            LEFT OUTER JOIN {tutorials_user_prefs} tup
-                ON tup.tutorialid=t.id AND tup.userid=:uid
+            LEFT OUTER JOIN {tutorials_seen} ts
+                ON ts.tutorialuuid=t.uuid AND ts.userid=:uid
             WHERE $select
             ORDER BY t.step ASC
         ", array(
@@ -52,6 +53,7 @@ class Tutorial
         foreach ($results as $result) {
             $tutorial = new static();
             $tutorial->id = $result->id;
+            $tutorial->uuid = $result->uuid;
             $tutorial->element = $result->element;
             $tutorial->contents = $result->contents;
             $tutorial->position = $result->position;
@@ -132,17 +134,17 @@ class Tutorial
 
         $record = array(
             'userid' => $USER->id,
-            'tutorialid' => $this->id
+            'tutorialuuid' => $this->uuid
         );
 
-        $obj = $DB->get_record('tutorials_user_prefs', $record);
+        $obj = $DB->get_record('tutorials_seen', $record);
         if ($obj) {
             $obj->value = 1;
-            return $DB->update_record('tutorials_user_prefs', $obj);
+            return $DB->update_record('tutorials_seen', $obj);
         }
 
         $record['value'] = 1;
-        return $DB->insert_record('tutorials_user_prefs', $record);
+        return $DB->insert_record('tutorials_seen', $record);
     }
 
     /**
@@ -152,9 +154,9 @@ class Tutorial
         global $DB, $USER;
 
         if (!isset($this->seen)) {
-            $this->seen = $DB->get_field('tutorials_user_prefs', 'value', array(
+            $this->seen = $DB->get_field('tutorials_seen', 'value', array(
                 'userid' => $USER->id,
-                'tutorialid' => $this->id
+                'tutorialuuid' => $this->uuid
             ));
 
             if (!$this->seen) {

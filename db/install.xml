@@ -8,11 +8,11 @@
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="uuid" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="url" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="url" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="step" TYPE="int" LENGTH="2" NOTNULL="false" DEFAULT="1" SEQUENCE="false"/>
-        <FIELD NAME="element" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
-        <FIELD NAME="contents" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
-        <FIELD NAME="position" TYPE="int" LENGTH="1" NOTNULL="false" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="element" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="contents" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="position" TYPE="char" LENGTH="25" NOTNULL="false" DEFAULT="auto" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

@@ -81,7 +81,7 @@ class external extends external_api
             'id' => new external_value(PARAM_INT, 'The tutorial ID.'),
             'element' => new external_value(PARAM_TEXT, 'The tutorial DOM element reference.'),
             'intro' => new external_value(PARAM_TEXT, 'The tutorial contents.'),
-            'position' => new external_value(PARAM_INT, 'The tutorial position.'),
+            'position' => new external_value(PARAM_TEXT, 'The tutorial position.'),
             'seen' => new external_value(PARAM_BOOL, 'The tutorial seen.')
         )));
     }
