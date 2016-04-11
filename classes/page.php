@@ -21,7 +21,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Tutorials Page Manager.
  */
-class Page
+class page
 {
     /**
      * Page load event.
@@ -52,7 +52,7 @@ class Page
 
         // Check we have some tutorials.
         $localurl = $page->url->out_as_local_url();
-        $tutorials = \local_tutorials\Tutorial::get_tutorials($localurl);
+        $tutorials = \local_tutorials\tutorial::get_tutorials($localurl);
         if (count($tutorials) <= 0) {
             return false;
         }

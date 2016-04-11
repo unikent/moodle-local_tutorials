@@ -23,9 +23,7 @@ require_once($CFG->libdir . '/formslib.php');
  */
 class tutorials_preferences_form extends moodleform {
     public function definition() {
-        global $USER, $CFG;
-
-        $mform    =& $this->_form;
+        $mform =& $this->_form;
 
         $mform->addElement('checkbox', 'showtutorials', "Enable Tutorials");
         $mform->setDefault('showtutorials', 1);

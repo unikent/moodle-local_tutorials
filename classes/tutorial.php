@@ -21,7 +21,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * A Tutorial.
  */
-class Tutorial
+class tutorial
 {
     private $id;
     private $uuid;

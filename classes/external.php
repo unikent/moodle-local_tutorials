@@ -61,14 +61,12 @@ class external extends external_api
      * @throws \invalid_parameter_exception
      */
     public static function get_tutorials($url) {
-        global $DB;
-
         $params = self::validate_parameters(self::get_tutorials_parameters(), array(
             'url' => $url
         ));
         $url = $params['url'];
 
-        return \local_tutorials\Tutorial::get_tutorials($url);
+        return \local_tutorials\tutorial::get_tutorials($url);
     }
 
     /**
@@ -108,14 +106,12 @@ class external extends external_api
      * @throws \invalid_parameter_exception
      */
     public static function mark_seen($id) {
-        global $DB;
-
         $params = self::validate_parameters(self::mark_seen_parameters(), array(
             'id' => $id
         ));
         $id = $params['id'];
 
-        $tutorial = \local_tutorials\Tutorial::get_tutorial($id);
+        $tutorial = \local_tutorials\tutorial::get_tutorial($id);
         if ($tutorial) {
             $tutorial->mark_seen();
         }
