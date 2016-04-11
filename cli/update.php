@@ -14,17 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
- * Defines the version.
- *
- * @package    local_tutorials
- * @copyright  2016 Skylar Kelty <S.Kelty@kent.ac.uk>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * This will update the tutorial DB.
  */
 
-defined('MOODLE_INTERNAL') || die();
+define('CLI_SCRIPT', true);
 
-$plugin->version   = 2016040405;
-$plugin->component = 'local_tutorials';
-$plugin->requires = 2015111600;
+require_once(dirname(__FILE__) . '/../../../config.php');
+require_once($CFG->libdir . '/clilib.php');
+
+\local_tutorials\loader::update();

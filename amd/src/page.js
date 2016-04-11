@@ -32,7 +32,7 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
                 var elem = document.querySelector(o['element']);
                 if (!elem) {
                     console.log("Orphaned tutorial step: " + o['id']);
-                    // TODO: Mark as orphaned? Splunk?
+                    // TODO: Mark as orphaned?
                     return;
                 }
             } else {

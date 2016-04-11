@@ -146,5 +146,58 @@ function xmldb_local_tutorials_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2016040402, 'local', 'tutorials');
     }
 
+    if ($oldversion < 2016040403) {
+        // Changing nullability of field url on table tutorials to null.
+        $table = new xmldb_table('tutorials');
+        $field = new xmldb_field('url', XMLDB_TYPE_TEXT, null, null, null, null, null, 'uuid');
+
+        // Launch change of nullability for field url.
+        $dbman->change_field_notnull($table, $field);
+
+        // Changing nullability of field element on table tutorials to not null.
+        $table = new xmldb_table('tutorials');
+        $field = new xmldb_field('element', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null, 'step');
+
+        // Launch change of nullability for field element.
+        $dbman->change_field_notnull($table, $field);
+
+        // Changing nullability of field contents on table tutorials to not null.
+        $table = new xmldb_table('tutorials');
+        $field = new xmldb_field('contents', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null, 'element');
+
+        // Launch change of nullability for field contents.
+        $dbman->change_field_notnull($table, $field);
+
+        // Tutorials savepoint reached.
+        upgrade_plugin_savepoint(true, 2016040403, 'local', 'tutorials');
+    }
+
+    if ($oldversion < 2016040404) {
+        // Define field position to be dropped from tutorials.
+        $table = new xmldb_table('tutorials');
+        $field = new xmldb_field('position');
+
+        // Conditionally launch drop field position.
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+        // Tutorials savepoint reached.
+        upgrade_plugin_savepoint(true, 2016040404, 'local', 'tutorials');
+    }
+
+    if ($oldversion < 2016040405) {
+        // Define field position to be added to tutorials.
+        $table = new xmldb_table('tutorials');
+        $field = new xmldb_field('position', XMLDB_TYPE_CHAR, '25', null, null, null, 'bottom', 'contents');
+
+        // Conditionally launch add field position.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Tutorials savepoint reached.
+        upgrade_plugin_savepoint(true, 2016040405, 'local', 'tutorials');
+    }
+
     return true;
 }

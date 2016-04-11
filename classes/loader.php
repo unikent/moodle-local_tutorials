@@ -35,12 +35,24 @@ class loader
         $filelist = self::scan();
         foreach ($filelist as $filename => $component) {
             $json = file_get_contents($filename);
-            $obj = json_decode($json);
-            $obj->uuid = "{$component}_{$obj->uuid}";
-            $uuids[] = $obj->uuid;
+            $tutorials = json_decode($json);
+            if (!$tutorials || !is_array($tutorials)) {
+                $err = json_last_error_msg();
+                debugging("Error parsing tutorial JSON for {$component} ($err).", DEBUG_DEVELOPER);
+                continue;
+            }
 
-            if (!$DB->record_exists('tutorials', array('uuid' => $obj->uuid))) {
-                $DB->insert_record('tutorials', $obj);
+            foreach ($tutorials as $tutorial) {
+                if (!self::validate($tutorial, $component)) {
+                    continue;
+                }
+
+                $tutorial->uuid = "{$component}_{$tutorial->uuid}";
+                $uuids[] = $tutorial->uuid;
+
+                if (!$DB->record_exists('tutorials', array('uuid' => $tutorial->uuid))) {
+                    $DB->insert_record('tutorials', $tutorial);
+                }
             }
         }
 
@@ -52,6 +64,28 @@ class loader
         }, $diff);
         $DB->delete_records('tutorials', $deleteset);
         $DB->delete_records('tutorials_seen', $deleteset);
+    }
+
+    /**
+     * Validates a tutorial.
+     */
+    private static function validate($tutorial, $component) {
+        if (empty($tutorial->uuid)) {
+            debugging("Error parsing tutorial for {$component} - no UUID.", DEBUG_DEVELOPER);
+            return false;
+        }
+
+        if (empty($tutorial->element)) {
+            debugging("Error parsing tutorial for {$component}/{$tutorial->uuid} - no element.", DEBUG_DEVELOPER);
+            return false;
+        }
+
+        if (empty($tutorial->contents)) {
+            debugging("Error parsing tutorial for {$component}/{$tutorial->uuid} - no contents.", DEBUG_DEVELOPER);
+            return false;
+        }
+
+        return true;
     }
 
     /**
