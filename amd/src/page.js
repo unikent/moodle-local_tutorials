@@ -22,28 +22,33 @@
  /**
   * @module local_tutorials/page
   */
-define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notification) {
+define(['jquery', 'core/ajax'], function($, ajax) {
+    var tutorialids = [];
+    var tutorialsteps = [];
+
     var initTutorials = function(data) {
         // Build steps
-        var int_steps = [];
-        var steps = [];
         $.each(data, function(i,o) {
-            if (o['element'].length > 0) {
-                var elem = document.querySelector(o['element']);
+            if (o.element.length > 0) {
+                var elem = document.querySelector(o.element);
                 if (!elem) {
-                    console.log("Orphaned tutorial step: " + o['id']);
-                    // TODO: Mark as orphaned?
                     return;
                 }
             } else {
-                delete o['element'];
+                delete o.element;
             }
 
-            steps.push(o);
-            int_steps.push(o['id']);
+            tutorialsteps.push(o);
+            tutorialids.push(o.id);
         });
 
-        if (steps.length <= 0) {
+        if (tutorialsteps.length <= 0) {
+            $("#tutorial-play").hide();
+        }
+    };
+
+    var playTutorials = function() {
+        if (tutorialsteps.length <= 0) {
             return;
         }
 
@@ -51,16 +56,16 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
             var intro = introJs();
 
             intro.setOptions({
-                steps: steps,
+                steps: tutorialsteps,
                 nextLabel: 'Next',
                 prevLabel: 'Back',
                 skipLabel: 'Close',
                 doneLabel: 'Close'
             });
 
-            intro.onchange(function(targetElement) {
+            intro.onchange(function() {
                 // Mark this step as complete.
-                var tutid = int_steps[this._currentStep];
+                var tutid = tutorialids[this._currentStep];
                 ajax.call([{
                     methodname: 'local_tutorials_mark_seen',
                     args: {
@@ -83,8 +88,10 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
 
     return {
         init: function(url, tutorials) {
+            initTutorials(tutorials);
+
             $("#tutorial-play button").on('click', function() {
-                initTutorials(tutorials);
+                playTutorials();
 
                 return false;
             });

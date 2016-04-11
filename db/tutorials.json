@@ -27,5 +27,10 @@
         "uuid": "globaltest",
         "element": ".block_settings",
         "contents": "This is a settings block"
+    },
+    {
+        "uuid": "globaltest2",
+        "element": ".thiswillneverexist",
+        "contents": "You shouldn't see this, ever."
     }
 ]
