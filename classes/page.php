@@ -59,7 +59,7 @@ class page
 
         // Okay! We want to show tutorials!
         $page->requires->jquery();
-        $page->requires->js_call_amd('local_tutorials/page', 'init', array($localurl));
+        $page->requires->js_call_amd('local_tutorials/page', 'init', array($localurl, $tutorials));
         $page->requires->css('/local/tutorials/less/build/build.css');
 
         $page->set_button($OUTPUT->single_button(new \moodle_url('/local/tutorial/view.php', array()), 'Help', 'get', array(

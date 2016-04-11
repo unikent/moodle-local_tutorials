@@ -81,30 +81,10 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
         });
     };
 
-    var loadTutorials = function(url) {
-        // Call AJAX webservice to search.
-        var promises = ajax.call([{
-            methodname: 'local_tutorials_get_tutorials',
-            args: {
-                url: url
-            }
-        }]);
-
-        promises[0].done(function(response) {
-            if (response.length <= 0) {
-                return;
-            }
-
-            initTutorials(response);
-        });
-
-        promises[0].fail(notification.exception);
-    };
-
     return {
-        init: function(url) {
+        init: function(url, tutorials) {
             $("#tutorial-play button").on('click', function() {
-                loadTutorials(url);
+                initTutorials(tutorials);
 
                 return false;
             });
