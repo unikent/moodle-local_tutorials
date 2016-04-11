@@ -85,5 +85,66 @@ function xmldb_local_tutorials_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2014100800, 'local', 'tutorials');
     }
 
+    if ($oldversion < 2016040400) {
+        // Define field uuid to be added to tutorials.
+        $table = new xmldb_table('tutorials');
+        $field = new xmldb_field('uuid', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'id');
+
+        // Conditionally launch add field uuid.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define key k_uuid (unique) to be added to tutorials.
+        $table = new xmldb_table('tutorials');
+        $key = new xmldb_key('k_uuid', XMLDB_KEY_UNIQUE, array('uuid'));
+
+        // Launch add key k_uuid.
+        $dbman->add_key($table, $key);
+
+        // Tutorials savepoint reached.
+        upgrade_plugin_savepoint(true, 2016040400, 'local', 'tutorials');
+    }
+
+    if ($oldversion < 2016040401) {
+        // Define table tutorials_user_prefs to be dropped.
+        $table = new xmldb_table('tutorials_user_prefs');
+
+        // Conditionally launch drop table for tutorials_user_prefs.
+        if ($dbman->table_exists($table)) {
+            $dbman->drop_table($table);
+        }
+
+        // Tutorials savepoint reached.
+        upgrade_plugin_savepoint(true, 2016040401, 'local', 'tutorials');
+    }
+
+    if ($oldversion < 2016040402) {
+        // Define table tutorials_seen to be created.
+        $table = new xmldb_table('tutorials_seen');
+
+        // Adding fields to table tutorials_seen.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('userid', XMLDB_TYPE_INTEGER, '11', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('tutorialuuid', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('value', XMLDB_TYPE_INTEGER, '1', null, null, null, '0');
+
+        // Adding keys to table tutorials_seen.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+        $table->add_key('k_userid_tutorialuuid', XMLDB_KEY_UNIQUE, array('userid', 'tutorialuuid'));
+
+        // Adding indexes to table tutorials_seen.
+        $table->add_index('i_userid', XMLDB_INDEX_NOTUNIQUE, array('userid'));
+        $table->add_index('i_tutorialuuid', XMLDB_INDEX_NOTUNIQUE, array('tutorialuuid'));
+
+        // Conditionally launch create table for tutorials_seen.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        // Tutorials savepoint reached.
+        upgrade_plugin_savepoint(true, 2016040402, 'local', 'tutorials');
+    }
+
     return true;
 }

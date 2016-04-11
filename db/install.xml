@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/tutorials/db" VERSION="20141002" COMMENT="XMLDB file for Moodle local/tutorials"
+<XMLDB PATH="local/tutorials/db" VERSION="20160411" COMMENT="XMLDB file for Moodle local/tutorials"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -7,6 +7,7 @@
     <TABLE NAME="tutorials" COMMENT="Stores tutorials">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="uuid" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="url" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="step" TYPE="int" LENGTH="2" NOTNULL="false" DEFAULT="1" SEQUENCE="false"/>
         <FIELD NAME="element" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
@@ -15,22 +16,23 @@
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="k_uuid" TYPE="unique" FIELDS="uuid"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="tutorials_user_prefs" COMMENT="User preferences for tutorials">
+    <TABLE NAME="tutorials_seen" COMMENT="User preferences for tutorials">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="userid" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="tutorialid" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="tutorialuuid" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="value" TYPE="int" LENGTH="1" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="k_userid_tutorialid" TYPE="unique" FIELDS="userid, tutorialid"/>
+        <KEY NAME="k_userid_tutorialuuid" TYPE="unique" FIELDS="userid, tutorialuuid"/>
       </KEYS>
       <INDEXES>
         <INDEX NAME="i_userid" UNIQUE="false" FIELDS="userid"/>
-        <INDEX NAME="i_tutorialid" UNIQUE="false" FIELDS="tutorialid"/>
+        <INDEX NAME="i_tutorialuuid" UNIQUE="false" FIELDS="tutorialuuid"/>
       </INDEXES>
     </TABLE>
   </TABLES>

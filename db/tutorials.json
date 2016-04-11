@@ -1,5 +1,6 @@
 [
     {
+        'uuid': 'test1',
         'url': '/local/tutorials/index.php',
         'step': 0,
         'element': '.testnotification',
@@ -8,6 +9,7 @@
         'position': 'bottom'
     },
     {
+        'uuid': 'test2',
         'url': '/local/tutorials/index.php',
         'step': 1,
         'element': '#testid1',
@@ -16,6 +18,7 @@
         'position': 'left'
     },
     {
+        'uuid': 'test3',
         'url': '/local/tutorials/index.php',
         'step': 2,
         'element': '#testid2',
