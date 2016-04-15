@@ -100,7 +100,9 @@ function xmldb_local_tutorials_upgrade($oldversion) {
         $key = new xmldb_key('k_uuid', XMLDB_KEY_UNIQUE, array('uuid'));
 
         // Launch add key k_uuid.
-        $dbman->add_key($table, $key);
+        if (!$dbman->index_exists($table, $key)) {
+            $dbman->add_key($table, $key);
+        }
 
         // Tutorials savepoint reached.
         upgrade_plugin_savepoint(true, 2016040400, 'local', 'tutorials');
